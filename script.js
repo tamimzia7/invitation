@@ -1,69 +1,9 @@
-const yesButton = document.getElementById("yesButton");
-const noButton = document.getElementById("noButton");
-const buttonArea = document.getElementById("buttonArea");
-const hint = document.getElementById("hint");
-const successScreen = document.getElementById("successScreen");
-const mainCard = document.getElementById("mainCard");
-const confettiLayer = document.getElementById("confettiLayer");
-const againButton = document.getElementById("againButton");
-
-const playfulMessages = [
-  "Oops! Too slow 😜",
-  "Hehe, try the other one! 💗",
-  "That button is feeling shy 🙈",
-  "Are you sure? Give YES a chance! 🌸",
-  "The universe says… click YES! ✨"
-];
-let attempts = 0;
-
-function moveNoButton() {
-  // Keep the moving button within the invitation card.
-  const area = buttonArea.getBoundingClientRect();
-  const button = noButton.getBoundingClientRect();
-  const maxX = Math.max(0, area.width - button.width);
-  const maxY = 85;
-  const x = Math.random() * maxX - maxX / 2;
-  const y = (Math.random() * maxY) - maxY / 2;
-  noButton.style.position = "relative";
-  noButton.style.transform = `translate(${x}px, ${y}px)`;
-  hint.textContent = playfulMessages[attempts % playfulMessages.length];
-  attempts++;
-}
-
-noButton.addEventListener("pointerenter", moveNoButton);
-noButton.addEventListener("click", (event) => {
-  event.preventDefault();
-  moveNoButton();
-});
-noButton.addEventListener("touchstart", (event) => {
-  event.preventDefault();
-  moveNoButton();
-}, { passive: false });
-
-function celebrate() {
-  mainCard.classList.add("hidden");
-  successScreen.classList.remove("hidden");
-  confettiLayer.innerHTML = "";
-  const pieces = ["💗", "💕", "💖", "🌸", "✨", "♥"];
-  for (let i = 0; i < 45; i++) {
-    const piece = document.createElement("span");
-    piece.className = "confetti";
-    piece.textContent = pieces[Math.floor(Math.random() * pieces.length)];
-    piece.style.left = `${Math.random() * 100}%`;
-    piece.style.setProperty("--duration", `${3 + Math.random() * 3}s`);
-    piece.style.setProperty("--size", `${14 + Math.random() * 17}px`);
-    piece.style.animationDelay = `${Math.random() * 1.2}s`;
-    confettiLayer.appendChild(piece);
-  }
-}
-yesButton.addEventListener("click", celebrate);
-
-againButton.addEventListener("click", () => {
-  successScreen.classList.add("hidden");
-  mainCard.classList.remove("hidden");
-  noButton.style.transform = "";
-  noButton.style.position = "";
-  hint.textContent = "Choose wisely… my heart is waiting! 💌";
-  attempts = 0;
-  confettiLayer.innerHTML = "";
-});
+const yes=document.getElementById('yesButton'),no=document.getElementById('noButton'),area=document.getElementById('buttonArea'),hint=document.getElementById('hint'),main=document.getElementById('mainCard'),screen=document.getElementById('successScreen'),form=document.getElementById('dateForm'),confirmation=document.getElementById('confirmation');
+const today=new Date(),todayString=new Date(today.getTime()-today.getTimezoneOffset()*60000).toISOString().slice(0,10);
+document.getElementById('dateChoice').min=todayString;document.getElementById('alternateDate').min=todayString;
+const messages=['Oops! Too slow 😜','That button is shy 🙈','Try the YES button! 💗','The universe says YES! ✨'];let tries=0;
+function moveNo(){const a=area.getBoundingClientRect(),b=no.getBoundingClientRect();no.style.position='relative';no.style.transform=`translate(${(Math.random()-.5)*Math.max(45,a.width-b.width)}px,${(Math.random()-.5)*75}px)`;hint.textContent=messages[tries++%messages.length]}
+no.addEventListener('pointerenter',moveNo);no.addEventListener('click',e=>{e.preventDefault();moveNo()});no.addEventListener('touchstart',e=>{e.preventDefault();moveNo()},{passive:false});
+yes.addEventListener('click',()=>{main.classList.add('hidden');screen.classList.remove('hidden');});
+form.addEventListener('submit',e=>{e.preventDefault();const d=new FormData(form),foods=d.getAll('food');confirmation.textContent=['Yay! Here are my date preferences 💗',`First choice: ${d.get('date')}`,`Another free date: ${d.get('alternateDate')||'Not specified'}`,`Preferred time: ${d.get('time')}`,`Food: ${foods.length?foods.join(', '):'Open to suggestions'}`,`Place: ${d.get('place')||'Your choice'}`,`Note: ${d.get('note')||'None'}`].join('\n');confirmation.classList.remove('hidden');confirmation.scrollIntoView({behavior:'smooth',block:'nearest'})});
+document.getElementById('againButton').addEventListener('click',()=>{screen.classList.add('hidden');main.classList.remove('hidden');no.style.position='';no.style.transform='';hint.textContent='Choose wisely… my heart is waiting! 💌';tries=0;confirmation.classList.add('hidden')});
