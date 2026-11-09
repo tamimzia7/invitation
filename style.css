@@ -1,0 +1,64 @@
+* { box-sizing: border-box; }
+:root {
+  --pink: #ed6f9d;
+  --deep: #b94778;
+  --ink: #61394e;
+  --muted: #987487;
+}
+body {
+  margin: 0; min-height: 100vh; display: grid; place-items: center;
+  padding: 28px 16px; overflow-x: hidden; position: relative;
+  font-family: "DM Sans", sans-serif; color: var(--ink);
+  background: linear-gradient(135deg, #fff6f8 0%, #ffe8f0 48%, #fff1f5 100%);
+}
+.ambient { position: fixed; border-radius: 50%; filter: blur(2px); opacity: .5; pointer-events: none; }
+.ambient-one { width: 260px; height: 260px; background: #ffd0e0; top: -100px; left: -80px; }
+.ambient-two { width: 330px; height: 330px; background: #ffe0eb; bottom: -150px; right: -110px; }
+.card, .success-card {
+  width: min(100%, 520px); text-align: center; position: relative; z-index: 1;
+  padding: 28px 30px 24px; border: 1px solid rgba(255,255,255,.9);
+  border-radius: 32px; background: rgba(255,255,255,.82);
+  box-shadow: 0 24px 70px rgba(184, 82, 124, .14);
+  backdrop-filter: blur(12px); animation: rise .7s ease both;
+}
+.top-hearts { color: #ef9ab8; letter-spacing: 7px; font-size: 19px; }
+.illustration { height: 172px; display: grid; place-items: center; position: relative; margin: 4px auto 0; }
+.bear { font-size: 100px; z-index: 2; filter: drop-shadow(0 9px 8px rgba(190,100,135,.16)); animation: bob 2.6s ease-in-out infinite; }
+.heart { position: absolute; color: #f6a8c2; }
+.heart-back { font-size: 70px; transform: rotate(-18deg); left: 24%; top: 22px; opacity: .7; }
+.heart-front { font-size: 35px; right: 24%; bottom: 23px; transform: rotate(16deg); color: #ed78a1; }
+.sparkle { position: absolute; color: #eaa0b8; font-size: 25px; }
+.sparkle-one { top: 24px; right: 27%; }.sparkle-two { bottom: 24px; left: 25%; }
+.eyebrow { margin: 8px 0 10px; color: #d36d94; font-size: 11px; font-weight: 700; letter-spacing: 2.4px; text-transform: uppercase; }
+h1, h2 { font-family: "Pacifico", cursive; font-weight: 400; line-height: 1.35; color: #70445a; }
+h1 { font-size: clamp(31px, 7vw, 43px); margin: 0; }
+h1 span, h2 span { color: var(--pink); }
+.subtitle { color: var(--muted); line-height: 1.7; font-size: 14px; margin: 13px auto 25px; max-width: 340px; }
+.button-area { display: flex; align-items: center; justify-content: center; gap: 16px; min-height: 56px; position: relative; }
+button { border: 0; border-radius: 999px; padding: 14px 30px; font: 700 15px "DM Sans", sans-serif; cursor: pointer; transition: transform .2s, box-shadow .2s, background .2s; }
+button:focus-visible { outline: 3px solid #a94370; outline-offset: 4px; }
+.yes-button { color: white; background: linear-gradient(135deg, #f28caf, #df5f91); box-shadow: 0 9px 22px rgba(223,95,145,.28); }
+.yes-button:hover { transform: translateY(-3px) scale(1.04); box-shadow: 0 13px 26px rgba(223,95,145,.35); }
+.no-button { color: #a66b83; background: #fff0f5; border: 1px solid #f5d4e0; }
+.no-button:hover { background: #ffe4ed; }
+.hint { color: #bd8ca1; font-size: 12px; min-height: 18px; margin: 18px 0 20px; }
+.footer { border-top: 1px solid #f8e5ec; padding-top: 17px; margin: 0; color: #c39aaa; font-size: 10px; letter-spacing: .4px; }
+.success-screen { position: fixed; inset: 0; z-index: 5; display: grid; place-items: center; padding: 20px; background: rgba(255,239,245,.94); }
+.hidden { display: none; }
+.success-card { padding: 42px 28px; }
+.celebrate-icon { font-size: 75px; animation: bob 2s ease-in-out infinite; }
+h2 { font-size: clamp(31px, 7vw, 42px); margin: 8px 0 12px; }
+.success-copy { color: var(--muted); line-height: 1.7; }
+.date-stamp { display: inline-block; margin: 17px 0 25px; padding: 12px 17px; border: 1px dashed #edabc2; border-radius: 14px; color: #c15e87; font-size: 12px; }
+.again-button { display: block; margin: auto; background: #fff0f5; color: #a94f76; }
+.confetti-layer { position: fixed; inset: 0; pointer-events: none; z-index: 8; overflow: hidden; }
+.confetti { position: absolute; top: -30px; animation: fall var(--duration) linear forwards; font-size: var(--size); }
+@keyframes rise { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes bob { 0%,100% { transform: translateY(0) rotate(-2deg); } 50% { transform: translateY(-9px) rotate(2deg); } }
+@keyframes fall { to { transform: translateY(110vh) rotate(540deg); opacity: .1; } }
+@media (max-width: 420px) {
+  .card { padding: 22px 18px 20px; border-radius: 26px; }
+  .illustration { height: 150px; }.bear { font-size: 88px; }
+  .heart-back { left: 15%; }.heart-front { right: 15%; }
+  .button-area { gap: 10px; }.button-area button { padding: 13px 25px; }
+}
